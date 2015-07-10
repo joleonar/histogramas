@@ -1,0 +1,61 @@
+---
+title: "Eartquake Histograms "
+author: "Leonardo Alvarado"
+date: "10/07/2015"
+output: html_document
+---
+
+
+This application was designed to plot two type of histograms from real database of earthquakes that occured between 2000 and 2010 in Venezuela.
+
+## The Shiny Aplication
+
+The histograms that can be plotted are: 
+
+1. Number of seismic events per year 
+
+2. Number of seismic events per magnitud,
+
+since 2000 up to selected year (max 2010); you can see the number of eartquake occurred in the region of Venezuela, between latitude 5 to 14ºN and longitude 58 to 74ºW (or -74 to -58), the region of interest can be modified. The database was provided by FUNVISIS (Fundación Venezolana de Investigaciones Sismológicas).
+
+## Controls of the app.
+The app contain the following controls:  
+
+- **Slider Control:** To modify the period of time to plot, from 2000 to whatever year between 2000 and 2010. (The initial year can't be changed).  
+
+- **Numeric Input control:** There are 4 controls (latitude min, latitude max, longitude min and longitude max) you can select seismic events in the desired region. The desired region should be between latitude 5 to 14 (ºN) and longitude -74 to -54 (ºW)
+
+- **Select Input control:**  You can choose between two options: **Year** to see the number of events per year or **Magnitude** to see the number events per Magnitud.  
+
+- A **map** of the initial region is located in the main panel as a reference, it can't be modified.   
+
+## Results of the app
+1. The histogram plotted when you select Histogram **Year** is the following:
+
+```{r, echo=FALSE, fig.height=3}
+library(ggplot2)		  
+load("datos.RData")
+	gg <- ggplot(datos, aes(x=Year)) + geom_histogram(binwidth=1,colour="black",fill="blue") +
+	  	ylab("Count") + theme(axis.text.x = element_text(angle = 0, hjust = 1,size=12,colour="black"),
+        axis.title=element_text(size=12,face="bold"), axis.text.y = element_text(hjust = 1,size=12,colour="black"))  
+   print(gg)
+```
+
+This the histograms of the seismic events per year ocurred in Venezuela between 2000 and 2010.
+
+2. The histogram showed when you select Histogram **Magnitude** is the folowing:
+
+```{r,echo=FALSE,fig.height=3}
+library(ggplot2)		  
+load("datos.RData")
+	gg <- ggplot(datos, aes(x=Magnitude)) + geom_histogram(binwidth=1,colour="black",fill="blue") +
+	  	ylab("Count") + theme(axis.text.x = element_text(angle = 0, hjust = 1,size=12,colour="black"),
+        axis.title=element_text(size=12,face="bold"), axis.text.y = element_text(hjust = 1,size=12,colour="black"))  
+   print(gg)
+```
+
+This the histograms of the seismic events per magnitude ocurred in Venezuela between 2000 and 2010
+
+
+
+
